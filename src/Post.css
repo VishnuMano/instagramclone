@@ -1,0 +1,29 @@
+.post {
+  background-color: white;
+  max-width: 500px;
+  border: 1px solid lightgray;
+  margin-bottom: 45px;
+}
+
+.post_image {
+  /* Makes image scale properly with changing screen size*/
+  width: 100%;
+  object-fit: contain;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray; /* Adds Border To Top and Bottom of Image B/C Sides are Already Bordered By the Post's Border*/
+}
+
+.post_text {
+  font-weight: normal;
+  padding: 20px;
+}
+
+.post_header {
+  display: flex; /* Moves the avatar and username into 1 row */
+  align-items: center; /* Centers the username within the row (vertically) */
+  padding: 20px;
+}
+
+.post_avatar {
+  margin-right: 10px;
+}

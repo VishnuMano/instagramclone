@@ -4,8 +4,6 @@
 
 .app {
   background-color: #fafafa;
-  /* Changes the app container to to span the entire view height */
-  height: 100vh;
 }
 
 .app_header {
@@ -14,4 +12,9 @@
   padding: 20px;
   border-bottom: 1px solid lightgray;
   background-color: white;
+}
+
+.app_signup {
+  display: flex;
+  flex-direction: column;
 }
