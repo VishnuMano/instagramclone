@@ -6,12 +6,28 @@
   background-color: #fafafa;
 }
 
+.app_posts {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .app_header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   /* Keeps Aspect Ratio Constant Despite Screen Size - Prevents Stretched Logo*/
-  object-fit: contain;
+  background-color: white;
   padding: 20px;
   border-bottom: 1px solid lightgray;
   background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.app_headerImage {
+  object-fit: contain;
 }
 
 .app_signup {

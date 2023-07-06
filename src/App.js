@@ -6,6 +6,7 @@ import Modal from "@material-ui/core/Modal";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, Input } from "@mui/material";
 import ImageUpload from "./ImageUpload";
+import InstagramEmbed from "react-instagram-embed";
 
 function getModalStyle() {
   const top = 50;
@@ -78,9 +79,17 @@ function App() {
           displayName: username,
         });
       })
-      .catch((error) => alert(error.message));
+      .then(() => {
+        // Manually set the user state
+        setUser({ displayName: username });
 
-    setOpen(false);
+        // Clear the form fields
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setOpen(false);
+      })
+      .catch((error) => alert(error.message));
   };
 
   const signIn = (event) => {
@@ -94,12 +103,6 @@ function App() {
 
   return (
     <div className="app">
-      {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
-      ) : (
-        <h3>Login to upload</h3>
-      )}
-
       <Modal open={open} onClose={() => setOpen(false)}>
         <div style={modalStyle} className={classes.paper}>
           <form className="app_signup">
@@ -170,27 +173,46 @@ function App() {
           src="http://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
           alt="Instagram Logo"
         ></img>
+        {user ? (
+          <Button onClick={() => auth.signOut()}>Logout</Button>
+        ) : (
+          <div className="app_loginContainer">
+            <Button onClick={() => setOpenSignIn(true)}>Login</Button>
+            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+          </div>
+        )}
+      </div>
+      <div className="app_posts">
+        {posts.map(({ id, post }) => {
+          return (
+            <Post
+              key={id}
+              postId={id}
+              user={user}
+              username={post.username}
+              caption={post.caption}
+              imageUrl={post.imageUrl}
+            />
+          );
+        })}
       </div>
 
-      {user ? (
-        <Button onClick={() => auth.signOut()}>Logout</Button>
+      {/* {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
       ) : (
-        <div className="app_loginContainer">
-          <Button onClick={() => setOpenSignIn(true)}>Login</Button>
-          <Button onClick={() => setOpen(true)}>Sign Up</Button>
+        <h3>Login to upload</h3>
+      )} */}
+
+      {user?.displayName ? (
+        <div>
+          <ImageUpload username={user.displayName} />
+          <h3>Welcome, {user.displayName}!</h3>
+        </div>
+      ) : (
+        <div>
+          <h3>Login to upload</h3>
         </div>
       )}
-
-      {posts.map(({ id, post }) => {
-        return (
-          <Post
-            key={id}
-            username={post.username}
-            caption={post.caption}
-            imageUrl={post.imageUrl}
-          />
-        );
-      })}
     </div>
   );
 }
